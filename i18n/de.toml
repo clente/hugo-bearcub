@@ -1,0 +1,14 @@
+[filtering-for]
+  other = "Filtern nach"
+
+[no-posts]
+  other = "Noch keine Beträge"
+
+[email-subject]
+  other = "Antwort auf "
+
+[email-reply]
+  other = "Diesen Beitrag per Email kommentieren "
+
+[skip-link]
+  other = "Überspringen zum Hauptinhalt"

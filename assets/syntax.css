@@ -69,11 +69,11 @@
 /* Operator */ .chroma .o { color: #ff79c6 }
 /* OperatorWord */ .chroma .ow { color: #ff79c6 }
 /* Punctuation .chroma .p {  } */
-/* Comment */ .chroma .c { color: #7c90d0 }
-/* CommentHashbang */ .chroma .ch { color: #7c90d0 }
-/* CommentMultiline */ .chroma .cm { color: #7c90d0 }
-/* CommentSingle */ .chroma .c1 { color: #7c90d0 }
-/* CommentSpecial */ .chroma .cs { color: #7c90d0 }
+/* Comment */ .chroma .c { color: #8491b8 }
+/* CommentHashbang */ .chroma .ch { color: #8491b8 }
+/* CommentMultiline */ .chroma .cm { color: #8491b8 }
+/* CommentSingle */ .chroma .c1 { color: #8491b8 }
+/* CommentSpecial */ .chroma .cs { color: #8491b8 }
 /* CommentPreproc */ .chroma .cp { color: #ff79c6 }
 /* CommentPreprocFile */ .chroma .cpf { color: #ff79c6 }
 /* Generic .chroma .g {  } */

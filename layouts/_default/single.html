@@ -13,10 +13,10 @@
 </content>
 <p>
   {{ range (.GetTerms "tags") }}
-    <a class="blog-tags" href="{{ .Permalink }}">#{{ .LinkTitle }}</a>&nbsp;&nbsp;
+    <a class="blog-tags" href="{{ .RelPermalink }}">#{{ lower .LinkTitle }}</a>
   {{ end }}
 </p>
-{{ with .Site.Social.email }}
+{{ with .Site.Params.author.email }}
   <p>
     <a href='mailto:{{ . }}?subject={{ i18n "email-subject" }}"{{ default $.Site.Title $.Page.Title }}"'>
       {{ i18n "email-reply" }} ↪

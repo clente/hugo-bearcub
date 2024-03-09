@@ -134,6 +134,7 @@ ul.blog-posts li a:visited {
 
 a.blog-tags {
   line-height: 2;
+  margin-right: 12px;
 }
 
 h3.blog-filter {

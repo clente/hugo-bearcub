@@ -3,22 +3,33 @@
 {{ $fg := resources.Get "images/social_card_fg.png"}}
 {{ $bg := resources.Get "images/social_card_bg.png"}}
 
-{{ $fg = $fg.Filter (images.Text .Title (dict
+{{ if gt (len .Title) 45 }}
+  {{ $fg = $fg.Filter (images.Text .Title (dict
     "font" $font
-    "color" "#f8f8f2"
+    "color" "#fafafa"
+    "size" 95
+    "linespacing" 16
+    "x" 0
+    "y" 0
+  )) }}
+{{ else }}
+  {{ $fg = $fg.Filter (images.Text .Title (dict
+    "font" $font
+    "color" "#fafafa"
     "size" 130
     "linespacing" 20
     "x" 0
     "y" 0
-)) }}
+  )) }}
+{{ end }}
 
 {{ $date := .Date.Format (default "2006-01-02" .Site.Params.dateFormat) }}
-{{ $author := (default $.Site.Author.name ($.Param "author") ) }}
+{{ $author := (default $.Site.Params.author.name ($.Param "author") ) }}
 {{ $byline := (printf "%s | %s" $author $date) }}
 
 {{ $fg = $fg.Filter (images.Text $byline (dict
     "font" $font
-    "color" "#c9d1d9"
+    "color" "#898a8d"
     "size" 60
     "linespacing" 30
     "x" 0
@@ -29,7 +40,7 @@
 {{ $card := $card.Resize "900x webp q100" }}
 
 <!-- Open Graph / Facebook -->
-<!-- Source: https://raw.githubusercontent.com/gohugoio/hugo/master/tpl/tplimpl/embedded/templates/opengraph.html -->
+<!-- Source: https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/opengraph.html -->
 <meta property="og:title" content="{{ .Title }}" />
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
@@ -63,22 +74,52 @@
 {{ end }}{{ end }}
 {{- end }}
 
+{{- /* Deprecate site.Social.facebook_admin in favor of site.Params.social.facebook_admin */}}
+{{- $facebookAdmin := "" }}
+{{- with site.Params.social }}
+  {{- if reflect.IsMap . }}
+    {{- $facebookAdmin = .facebook_admin }}
+  {{- end }}
+{{- else }}
+  {{- with site.Social.facebook_admin }}
+    {{- $facebookAdmin = . }}
+    {{- warnf "The social key in site configuration is deprecated. Use params.social.facebook_admin instead." }}
+  {{- end }}
+{{- end }}
+
 {{- /* Facebook Page Admin ID for Domain Insights */}}
-{{- with .Site.Social.facebook_admin }}<meta property="fb:admins" content="{{ . }}" />{{ end }}
+{{ with $facebookAdmin }}<meta property="fb:admins" content="{{ . }}" />{{ end }}
 
 <!-- Twitter -->
 <!-- Source: https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/twitter_cards.html -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="{{ $card.Permalink | absURL }}"/>
-
 <meta name="twitter:title" content="{{ .Title }}"/>
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}"/>
-{{ with .Site.Social.twitter -}}
-<meta name="twitter:site" content="@{{ . }}"/>
-{{ end -}}
+
+{{- /* Deprecate site.Social.twitter in favor of site.Params.social.twitter */}}
+{{- $twitterSite := "" }}
+{{- with site.Params.social }}
+  {{- if reflect.IsMap . }}
+    {{- $twitterSite = .twitter }}
+  {{- end }}
+{{- else }}
+  {{- with site.Social.twitter }}
+    {{- $twitterSite = . }}
+    {{- warnf "The social key in site configuration is deprecated. Use params.social.twitter instead." }}
+  {{- end }}
+{{- end }}
+
+{{- with $twitterSite }}
+  {{- $content := . }}
+  {{- if not (strings.HasPrefix . "@") }}
+    {{- $content = printf "@%v" $twitterSite }}
+  {{- end }}
+<meta name="twitter:site" content="{{ $content }}"/>
+{{- end }}
 
 <!-- Microdata -->
-<!-- Source: https://raw.githubusercontent.com/gohugoio/hugo/master/tpl/tplimpl/embedded/templates/schema.html -->
+<!-- Source: https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/schema.html -->
 <meta itemprop="name" content="{{ .Title }}">
 <meta itemprop="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
 

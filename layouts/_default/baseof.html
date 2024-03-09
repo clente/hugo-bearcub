@@ -11,7 +11,7 @@
   {{- partial "seo_tags.html" . -}}
   <meta name="referrer" content="no-referrer-when-downgrade" />
 
-  {{ $style := resources.Get "style.css" | minify }}
+  {{ $style := print (default "original" .Site.Params.themeStyle) ".css" | resources.Get | minify }}
   <link href="{{ $style.RelPermalink }}" rel="stylesheet">
 
   {{ if (.Page.Store.Get "hasCodeBlock") }}

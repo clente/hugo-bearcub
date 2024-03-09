@@ -26,7 +26,7 @@ git submodule add https://github.com/clente/hugo-bearcub themes/hugo-bearcub
 To finish off, append a line to the site configuration file:
 
 ```sh
-echo 'theme = "hugo-bearcub"' >> config.toml
+echo 'theme = "hugo-bearcub"' >> hugo.toml
 ```
 
 ## Features
@@ -85,8 +85,8 @@ have to think about it again. My `_headers` file, for example, looks like this:
 ### Multilingual
 
 If you need to write a blog that supports more than one language, **Bear Cub**
-has you covered! Check out the demo's [`config.toml`
-file](https://github.com/clente/hugo-bearcub/blob/main/exampleSite/config.toml)
+has you covered! Check out the demo's [`hugo.toml`
+file](https://github.com/clente/hugo-bearcub/blob/main/exampleSite/hugo.toml)
 for a sample of how you can setup multilingual support.
 
 By default, the theme creates a translation button that gets disabled when the
@@ -107,7 +107,7 @@ already implemented:
   matter](https://gohugo.io/content-management/front-matter/). You can also add
   `render: false` to your [build
   options](https://gohugo.io/content-management/build-options/#readout) to avoid
-  rendering a blank post.
+  rendering blank posts.
 - Skip link: a "skip to main content" link that is temporarily invisible, but
   can be focused by people who need a keyboard to navigate the web (see [PR
   #5](https://github.com/clente/hugo-bearcub/pull/5) by
@@ -115,14 +115,21 @@ already implemented:
 - Reply by email: if you supply an email address, the theme creates a "Reply to
   this post by email" button at the end of every post (see Kev Quirk's [original
   implementation](https://kevquirk.com/adding-the-post-title-to-my-reply-by-email-button)).
+- `absfigure` shortcode: a shortcut to use the `figure` shortcode that also
+  converts relative URLs into absolute URLs by using the `absURL` function.
 - Single-use CSS (EXPERIMENTAL): you can add some styles to a single page by
   writing the CSS you need in `assets/{custom_css}.css` and then including
   `style: "{custom_css}.css"` in the [front
   matter](https://gohugo.io/content-management/front-matter/) of said page.
 - Conditional CSS (EXPERIMENTAL): since **Bear Cub** does syntax highlighting
-  without inline styles (see `config.toml` for more information), it only load
-  its `syntax.css` if, and only if, a code block is actually present in the
-  current page.
+  without inline styles (see `hugo.toml` for more information), it only load its
+  `syntax.css` if, and only if, a code block is actually present in the current
+  page.
+- Alternative "Herman" style (EXPERIMENTAL): if you want to check out a more
+  modern CSS style, you can change the `themeStyle` parameter to `"herman"` in
+  order to activate [Herman Martinus's](https://herman.bearblog.dev/) version of
+  the [Blogster Minimal](https://blogster-minimal.netlify.app/) theme for
+  [Astro](https://astro.build/).
 - Dynamic social card generation (EXPERIMENTAL): if you don't add preview images
   to a post, this template will generate one based on the title. You can see an
   example below.
@@ -131,8 +138,8 @@ already implemented:
 
 ## Configuration
 
-**Bear Cub** can be customized with a `config.toml` file. Check out the
-[configuration](https://github.com/clente/hugo-bearcub/blob/main/exampleSite/config.toml)
+**Bear Cub** can be customized with a `hugo.toml` file. Check out the
+[configuration](https://github.com/clente/hugo-bearcub/blob/main/exampleSite/hugo.toml)
 of the [demo](https://clente.github.io/hugo-bearcub/) for more information.
 
 ```toml
@@ -144,11 +151,6 @@ defaultContentLanguage = "en"
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT = true
-
-# Your name. For more information on why this must be a list, see
-# https://discourse.gohugo.io/t/site-author-usage/31459/8
-[author]
-  name = "John Doe"
 
 # Setup syntax highlighting without inline styles. For more information about
 # why you'd want to avoid inline styles, see
@@ -206,18 +208,29 @@ enableRobotsTXT = true
   # have the theme simply not show any link
   hideUntranslated = false
 
+  # (EXPERIMENTAL) This theme has two options for its CSS styles: "original" and
+  # "herman". The former is what you see on Bear Cub's demo (an optimized
+  # version of Hugo Bear Blog), while the latter has a more modern look based on
+  # Herman Martinus's version of the Blogster Minimal theme for Astro.
+  themeStyle = "original"
+
   # (EXPERIMENTAL) This theme is capable of dynamically generating social cards
   # for posts that don't have `images` defined in their front matter; By setting
   # `generateSocialCard` to false, you can prevent this behavior. For more
-  # information see layouts/partials/seo_tags.html
+  # information see layouts/partials/social_card.html
   generateSocialCard = true
 
   # Social media. Delete any item you aren't using to make sure it won't show up
   # in your website's metadata.
-  [social]
-    email = "me@example.com" # Added to the footer so readers can reply to posts
+  [params.social]
     twitter = "example" # Twitter handle (without '@')
     facebook_admin = "0000000000" # Facebook Page Admin ID
+
+  # Author metadata. This is mostly used for the RSS feed of your site, but the
+  # email is also added to the footer of each post
+  [params.author]
+    name = "John Doe" # Your name as shown in the RSS feed metadata
+    email = "me@example.com" # Added to the footer so readers can reply to posts
 ```
 
 ## Contributing

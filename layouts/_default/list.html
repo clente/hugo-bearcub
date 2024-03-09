@@ -16,7 +16,7 @@
       {{ if .Params.link }}
         <a href="{{ .Params.link }}" target="_blank">{{ .Title }} ↪</a>
       {{ else }}
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
       {{ end }}
     </li>
     {{ else }}
@@ -28,7 +28,7 @@
   {{ if not .Data.Singular }}
     <div>
       {{ range .Site.Taxonomies.tags }}
-        <a class="blog-tags" href="{{ .Page.Permalink }}">#{{ .Page.Title }}</a>&nbsp;&nbsp;
+        <a class="blog-tags" href="{{ .Page.RelPermalink }}">#{{ lower .Page.Title }}</a>
       {{ end }}
     </div>
   {{ end }}

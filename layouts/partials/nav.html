@@ -12,7 +12,7 @@
 <!-- Create a link to every translation -->
 {{ range where .Site.Languages "Lang" "!=" .Page.Lang }}
   {{ with (index $translations .Lang) }}
-    <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+    <a href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
   {{ else }}
     <!-- The complicated setup was necessary to make a grayed out link -->
     {{ if not .Params.hideUntranslated }}

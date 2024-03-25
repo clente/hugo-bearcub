@@ -92,7 +92,7 @@ for a sample of how you can setup multilingual support.
 By default, the theme creates a translation button that gets disabled when the
 current page is only available in any other language. You can also choose to
 hide this button (instead of disabling it) by setting `hideUntranslated =
-false`.
+true`.
 
 ### More
 

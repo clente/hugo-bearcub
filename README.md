@@ -227,7 +227,8 @@ enableRobotsTXT = true
     facebook_admin = "0000000000" # Facebook Page Admin ID
 
   # Author metadata. This is mostly used for the RSS feed of your site, but the
-  # email is also added to the footer of each post
+  # email is also added to the footer of each post. You can hide the "reply to"
+  # link by using a `hideReply` param in front matter.
   [params.author]
     name = "John Doe" # Your name as shown in the RSS feed metadata
     email = "me@example.com" # Added to the footer so readers can reply to posts

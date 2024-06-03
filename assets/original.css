@@ -89,6 +89,7 @@ pre code {
   white-space: pre-wrap;
   font-size: 14px;
   overflow-x: auto;
+  text-wrap: nowrap;
 }
 
 blockquote {

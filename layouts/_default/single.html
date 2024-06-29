@@ -6,6 +6,13 @@
     {{ .Date.Format (default "2006-01-02" .Site.Params.dateFormat) }}
   </time>
   {{ with .Params.author }}· {{.}}{{ end }}
+  {{ if and (.Site.Params.showContentTime) (not .Params.hideContentTime) }}
+    {{ if .Params.contentTime }}
+      {{ with .Params.contentTime }}· {{ printf "%d min" . }}{{end}}
+    {{ else }}
+      {{ with .ReadingTime }}· {{ printf "%d min" . }}{{end}}
+    {{ end }}
+  {{ end }}
 </p>
 {{ end }}
 <content>

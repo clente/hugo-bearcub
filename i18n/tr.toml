@@ -1,0 +1,14 @@
+[filtering-for]
+  other = "Filtrelenilen etiket"
+
+[no-posts]
+  other = "Henüz gönderi yok"
+
+[email-subject]
+  other = "Şu gönderiye yanıt: "
+
+[email-reply]
+  other = "Bu gönderiye eposta ile yanıt ver"
+
+[skip-link]
+  other = "Ana içeriğe geç"

@@ -2,9 +2,11 @@
 {{ if not .Params.menu }}
 <h1>{{ .Title }}</h1>
 <p class="byline">
-  <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
-    {{ .Date.Format (default "2006-01-02" .Site.Params.dateFormat) }}
-  </time>
+  {{- if .Date -}}
+    <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
+      {{ .Date.Format (default "2006-01-02" .Site.Params.dateFormat) }}
+    </time>
+  {{- end -}}
   {{ with .Params.author }}· {{.}}{{ end }}
 </p>
 {{ end }}
